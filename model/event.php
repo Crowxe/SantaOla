@@ -7,14 +7,25 @@
       private $description;
       private $date;
       private $images = array();
+      private $eventId;
 
-      function __construct($tilte, $description, $date, $images = array())
+      function __construct()
       {
-        $this->title = $title;
-        $this->description = $description;
-        $this->date = $date;
-        $this->images = $images;
+
       }
+
+      public function getEventId()
+      {
+        return $this->eventId;
+      }
+
+      public function setEventId($eventId)
+      {
+        $this->eventId = $eventId;
+
+        return $this;
+      }
+
 
       public function getTitle()
       {
