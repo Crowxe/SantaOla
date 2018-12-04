@@ -43,7 +43,7 @@
           $parameters["imgid"] = $idarray;
           $parameters["image"] = $link;
           $parameters["status"] = "active";
-          
+
           $this->connection = ExecuteNonQuery($query,$parameters);
         }catch(Exception $e){
           throw $e;
@@ -73,7 +73,7 @@
 
     }
 
-    public function GetEventById($dni)
+    public function GetSponsorByDNI($dni)
     {
       try{
         $sponsorR = null;
@@ -95,6 +95,7 @@
       }
     }
 
+// A cambiar por una columna "isActive" a la cual en esta función la seteamos en 0;
     public function LogicalDelete($dni)
     {
       try{

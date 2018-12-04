@@ -7,11 +7,11 @@
   class EventController
   {
 
-    private $eventData;
+    private $eventDAO;
 
     function __construct()
     {
-      this->$eventData = new EventDaoPdo();
+      this->$eventDAO = new EventDaoPdo();
     }
 
     function newEvent()
@@ -26,7 +26,7 @@
         ($code != null && $code != "") &&
         ($date != null && $date != "") &&
         ($image != null && (count($image) != 0)))
-          $this->$eventData->Add(new Event($title, $description, $data, $code, $images));
+          $this->$eventDAO->Add(new Event($title, $description, $data, $code, $images));
         else
           throw new WrongAtributeException();
     }
