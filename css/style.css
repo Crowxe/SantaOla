@@ -1,0 +1,17 @@
+.hm-gradient {
+    background-image: linear-gradient(to top, #f3e7e9 0%, #e3eeff 99%, #e3eeff 100%);
+}
+.darken-grey-text {
+    color: #2E2E2E;
+}
+
+body{
+  background-color:#82adc7;
+  color:light-gray;
+  background-image:url("https://blog.visme.co/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-052.jpg");
+  background-size: cover;
+}
+
+.jumbotron{
+  //background-color:#cccccc;
+}
