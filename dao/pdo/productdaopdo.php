@@ -76,7 +76,7 @@
 
     }
 
-    public function GetEventById($idproduct)
+    public function GetByProductCode($idproduct)
     {
       try{
         $productR = null;
