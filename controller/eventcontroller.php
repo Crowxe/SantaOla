@@ -75,7 +75,7 @@
               $message = 'Oops ! \n\n Hubo un problema al intentar agregar el evento.\n Consulte a su Administrador o vuelva a intentarlo.';
               echo '<script type="text/javascript">confirm("'.$message.'");</script>';
               require_once(VIEWS_PATH."home.php");
-          }
+          } // asd
       }
 
 
