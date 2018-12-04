@@ -17,5 +17,6 @@
     define("DB_NAME", "santaola");
     define("DB_USER", "root");
     define("DB_PASS", "");
+    define("IMAGESTABLE", "images");
 
 ?>

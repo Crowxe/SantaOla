@@ -4,7 +4,7 @@
   use excepcions\WrongAtributeException;
   use dao\pdo\EventDaoPdo;
 
-  class Controller extends AnotherClass
+  class EventController
   {
 
     private $eventData;
@@ -19,18 +19,16 @@
 
     }
 
-    function addEvent( $title, $description, $date, $code, $image = array() ) throws WrongAtributeException
+    function addEvent( $title, $description, $date, $code, $images = array() ) throws WrongAtributeException
     {
         if (($title != null && $title != "") &&
         ($description != null && $description != "") &&
         ($code != null && $code != "") &&
         ($date != null && $date != "") &&
         ($image != null && (count($image) != 0)))
-        {
-
-        }
+          $this->$eventData->Add(new Event($title, $description, $data, $code, $images));
         else
           throw new WrongAtributeException();
-      }
     }
+  }
 ?>

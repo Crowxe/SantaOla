@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.2
+-- version 4.6.6
 -- https://www.phpmyadmin.net/
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 04-12-2018 a las 00:52:00
--- Versión del servidor: 10.1.34-MariaDB
--- Versión de PHP: 7.2.8
+-- Servidor: localhost
+-- Tiempo de generación: 04-12-2018 a las 14:04:22
+-- Versión del servidor: 5.7.17-log
+-- Versión de PHP: 5.6.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -27,11 +25,13 @@ SET time_zone = "+00:00";
 --
 -- Estructura de tabla para la tabla `events`
 --
+
 CREATE TABLE `events` (
   `idevent` int(11) NOT NULL,
   `title` varchar(50) NOT NULL,
   `description` varchar(300) NOT NULL,
-  `date` date NOT NULL
+  `date` date NOT NULL,
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -42,21 +42,23 @@ CREATE TABLE `events` (
 
 CREATE TABLE `images` (
   `imgid` varchar(15) NOT NULL,
-  `image` varchar(100) NOT NULL
+  `image` varchar(100) NOT NULL,
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `productos`
+-- Estructura de tabla para la tabla `products`
 --
 
-CREATE TABLE `productos` (
+CREATE TABLE `products` (
   `idproduct` varchar(20) NOT NULL,
   `name` varchar(50) NOT NULL,
   `description` varchar(100) NOT NULL,
   `price` int(11) NOT NULL,
-  `image` varchar(100) NOT NULL
+  `image` varchar(100) NOT NULL,
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -68,7 +70,8 @@ CREATE TABLE `productos` (
 CREATE TABLE `sponsors` (
   `dni` varchar(15) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `description` varchar(200) NOT NULL
+  `description` varchar(200) NOT NULL,
+  `status` varchar(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -82,9 +85,9 @@ ALTER TABLE `events`
   ADD PRIMARY KEY (`idevent`);
 
 --
--- Indices de la tabla `productos`
+-- Indices de la tabla `products`
 --
-ALTER TABLE `productos`
+ALTER TABLE `products`
   ADD PRIMARY KEY (`idproduct`);
 
 --
@@ -102,8 +105,6 @@ ALTER TABLE `sponsors`
 --
 ALTER TABLE `events`
   MODIFY `idevent` int(11) NOT NULL AUTO_INCREMENT;
-COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

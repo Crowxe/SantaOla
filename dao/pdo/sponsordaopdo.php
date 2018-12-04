@@ -1,38 +1,32 @@
 <?php
   namespace dao\pdo;
 
-  use model\Event as Event;
+  use model\Sponsor as Sponsor;
   use dao\Connection as Connection;
   /**
    *
    */
-  class EventDaoPdo
+  class SponsorDaoPdo
   {
 
     private $connection;
-    private $tableName = 'events';
+    private $tableName = 'sponsors';
 
-    public function Add(Event $event)
+    public function Add(Sponsor $sponsor)
     {
 
       try{
-        $query = "INSERT INTO ".$this->tableName." (title,description,date,status) VALUES(:title,:description,:date,:status)";
+        $query = "INSERT INTO ".$this->tableName." (dni,name,description,status) VALUES(:dni,:name:,description,:status)";
 
-        $parameters["title"] = $event->getTitle();
-        $parameters["description"] = $event->getDescription();
-        $parameters["date"] = $event->getDate();
+        $parameters["dni"] = $sponsor->getDni();
+        $parameters["description"] = $sponsor->getDescription();
+        $parameters["name"] = $sponsor->getName();
         $parameters["status"] = "active";
 
         $this->connection = Connection::GetInstance();
 
         $this->connection = ExecuteNonQuery($query,$parameters);
-
-        $query2 = "SELECT idevent FROM".$this->tableName." WHERE (title = :title) AND (description = :description)";
-        $parameters2["title"] = $event->getTitle();
-        $parameters2["description"] = $event->getDescription();
-        $idevent = $this->connection->Execute($query2,$parameters2);
-        $this->AddArray($idevent, $sponsor->getImages());
-
+        $this->AddArray($sponsor->getDni, $sponsor->getImages);
       }catch(Exception $e){
         throw $e;
       }
@@ -49,7 +43,7 @@
           $parameters["imgid"] = $idarray;
           $parameters["image"] = $link;
           $parameters["status"] = "active";
-
+          
           $this->connection = ExecuteNonQuery($query,$parameters);
         }catch(Exception $e){
           throw $e;
@@ -60,47 +54,48 @@
     public function GetAll()
     {
       try {
-        $eventArray = array();
+        $sponsorArray = array();
         $query = "SELECT * FROM ".this->tableName." WHERE status = :status";
         $parameters["status"] = "active";
         $this->connection = Connection::GetInstance();
         $result = $this->connection->Execute($query,$parameters);
         foreach ($result as $row) {
           // code...
-            $event = new Event();
-            $event->setTitle($row["title"]);
-            $event->setDescription($row["description"]);
-            $event->setDate($row["date"]);
-            array_push($eventArray, $event);
+            $sponsor = new Sponsor();
+            $sponsor->setDni($row["dni"]);
+            $sponsor->setDescription($row["description"]);
+            $sponsor->setName($row["name"]);
+            array_push($sponsorArray, $sponsor);
         }
-        return $eventArray;
+        return $sponsorArray;
       } catch (Exception $e) {
       }
 
     }
 
-    public function GetEventById($idEvent)
+    public function GetEventById($dni)
     {
       try{
-        $eventR = null;
-        $query = "SELECT * FROM ".this->tableName." WHERE (idevent = :idevent) AND (status = :status)";
-        $parameters["idevent"] = $idEvent;
+        $sponsorR = null;
+        $query = "SELECT * FROM ".this->tableName." WHERE (dni = :dni) AND (status = :status)";
+        $parameters["dni"] = $dni;
         $parameters["status"] = "active";
         $this->connection = Connection::GetInstance();
         $resultSet = $this->connection->Execute($query,$parameters);
         foreach ($resultSet as $row) {
           // code...
-          $eventR->setTitle($row["title"]);
-          $eventR->setDescription($row["description"]);
-          $eventR->setDate($row["date"]);
+          $sponsorR = new Sponsor();
+          $sponsorR->setDni($row["dni"]);
+          $sponsorR->setDescription($row["description"]);
+          $sponsorR->setName($row["name"]);
         }
-        return $eventR;
+        return $sponsorR;
       }catch (Exception $e){
 
       }
     }
 
-    public function LogicalDelete($idEvent)
+    public function LogicalDelete($dni)
     {
       try{
         $query = "UPDATE ".$this->tableName." SET Status = "inactive" WHERE idevent = :idevent";
