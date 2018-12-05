@@ -8,7 +8,8 @@
         private $description;
         private $price;
         private $productcode;
-        private $image;
+        private $sex;
+        private $images = array();
 
 
     public function getName()
@@ -60,14 +61,14 @@
         return $this;
     }
 
-    public function getImage()
+    public function getImages()
     {
         return $this->image;
     }
 
-    public function setImage($image)
+    public function setImages($images)
     {
-        $this->image = $image;
+        $this->image = $images;
 
         return $this;
     }

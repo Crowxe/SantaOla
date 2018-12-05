@@ -27,11 +27,11 @@
 
         $this->connection = ExecuteNonQuery($query,$parameters);
 
-        $query2 = "SELECT idevent FROM".$this->tableName." WHERE (title = :title) AND (description = :description)";
+        $query2 = "SELECT idevent FROM ".$this->tableName." WHERE (title = :title) AND (description = :description)";
         $parameters2["title"] = $event->getTitle();
         $parameters2["description"] = $event->getDescription();
         $idevent = $this->connection->Execute($query2,$parameters2);
-        $this->AddArray($idevent, $sponsor->getImages());
+        $this->AddArray($idevent, $event->getImages());
 
       }catch(Exception $e){
         throw $e;
@@ -77,6 +77,24 @@
       } catch (Exception $e) {
       }
 
+    }
+
+    public function GetIdEvent($title, $description)
+    {
+      try{
+        $query2 = "SELECT idevent FROM ".$this->tableName." WHERE (title = :title) AND (description = :description)";
+        $parameters["title"] = $title;
+        $parameters["description"] = $description;
+        $this->connection = Connection::GetInstance();
+        $resultSet = $this->connection->Execute($query,$parameters);
+        foreach ($resultSet as $row) {
+          // code...
+          $idevent = $row["idevent"];
+        }
+        return $idevent;
+      }catch (Exception $e){
+
+      }
     }
 
     public function GetEventById($idEvent)

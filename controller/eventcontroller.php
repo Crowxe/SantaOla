@@ -12,7 +12,7 @@
 
     function __construct()
     {
-      this->$eventDAO = new EventDaoPdo();
+      $this->eventDAO = new EventDaoPdo();
     }
 
     public function addEvent($message = "")
@@ -28,25 +28,48 @@
             require_once(VIEWS_PATH."home.php");
         }
 
-        }
+    }
 
 
-        public function listEvents()
-        {
-          try
-          {
-              $eventList = $this->eventDAO->GetAll();
 
-          require_once(VIEWS_PATH."event-list.php");
-          }
-          catch(Exception $ex)
-        {
+    public function listEvents()
+    {
+      try
+      {
+        $eventList = $this->eventDAO->GetAll();
+        require_once(VIEWS_PATH."event-list.php");
+      } catch(Exception $ex)  {
           $message = 'Oops ! \n\n Hubo un problema al intentar mostrar la Pagina.\n Consulte a su Administrador o vuelva a intentarlo.';
           echo '<script type="text/javascript">confirm("'.$message.'");</script>';
           require_once(VIEWS_PATH."home.php");
         }
-      }
+    }
 
+    public function moveImage($name){
+          $imageDirectory = VIEWS_PATH.'img/events/';
+
+          if(!file_exists($imageDirectory)){
+
+              mkdir($imageDirectory);
+          }
+
+          if($_FILES and $_FILES['image']['size']>0){
+
+              if((isset($_FILES['image'])) && ($_FILES['image']['name'] != '')){
+
+                  $file = $imageDirectory . $name . "." . $this->obtenerExtensionFichero($_FILES['image']['name']);
+                  move_uploaded_file($_FILES["image"]["tmp_name"], $file);
+                  /*
+                  if(!file_exists($file)){
+                      move_uploaded_file($_FILES["image"]["tmp_name"], $file);
+                  }
+                  */
+                  return $file;
+              }
+          }else{
+              return null;
+          }
+      }
 
       public function Add($title, $description, $date)
       {
