@@ -16,14 +16,15 @@
     {
 
       try{
-        $query = "INSERT INTO ".$this->tableName." (idproduct,name,description,price,image,status) VALUES(:idproduct,:code,:name,:description,:price,:image,:status)";
+        $query = "INSERT INTO ".$this->tableName." (idproduct,name,description,price,image,status,sex) VALUES(:idproduct,:code,:name,:description,:price,:image,:status,:sex)";
 
         $parameters["idproduct"] = $product->getProductcode();
-        $parameters["name"] = $product->getrandmax();
+        $parameters["name"] = $product->getName();
         $parameters["description"] = $product->getDescription();
         $parameters["price"] = $product->getPrice();
         $parameters["image"] = $product->getImage();
         $parameters["status"] = "active";
+        $parameters["sex"] = $product->getSex();
 
         $this->connection = Connection::GetInstance();
 
@@ -39,7 +40,7 @@
       foreach ($array as $link) {
         // code...
         try{
-          $query = "INSERT INTO ".TABLESIMAGE." (imgid,image,status) VALUES(:imgid,:image,:status)";
+          $query = "INSERT INTO ".IMAGESTABLE." (imgid,image,status) VALUES(:imgid,:image,:status)";
 
           $parameters["imgid"] = $idarray;
           $parameters["image"] = $link;

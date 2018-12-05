@@ -47,7 +47,7 @@
       }
 
 
-      public function Add($name, $description, $price, $productcode)
+      public function Add($name, $description, $price, $productcode,$sex,$images)
       {
 
           //lo de la imagen lo hago después, no viene por parametro
@@ -58,7 +58,7 @@
               $product->setDescription($description);
               $product->setPrice($price);
               $product->setProductcode($productcode);
-
+              $product->setSex($sex);
 
               if($this->productDAO->GetByProductCode($product->getProductcode()) == null)
               {
@@ -77,6 +77,32 @@
               require_once(VIEWS_PATH."home.php");
           }
       }
+
+      public function moveImage($name){
+            $imageDirectory = VIEWS_PATH.'img/products/';
+
+            if(!file_exists($imageDirectory)){
+
+                mkdir($imageDirectory);
+            }
+
+            if($_FILES and $_FILES['image']['size']>0){
+
+                if((isset($_FILES['image'])) && ($_FILES['image']['name'] != '')){
+
+                    $file = $imageDirectory . $name . "." . $this->obtenerExtensionFichero($_FILES['image']['name']);
+                    move_uploaded_file($_FILES["image"]["tmp_name"], $file);
+                    /*
+                    if(!file_exists($file)){
+                        move_uploaded_file($_FILES["image"]["tmp_name"], $file);
+                    }
+                    */
+                    return $file;
+                }
+            }else{
+                return null;
+            }
+        }
 
 
       public function Delete($productCode)

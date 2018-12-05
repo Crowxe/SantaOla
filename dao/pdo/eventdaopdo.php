@@ -27,7 +27,7 @@
 
         $this->connection = ExecuteNonQuery($query,$parameters);
 
-        $query2 = "SELECT idevent FROM ".$this->tableName." WHERE (title = :title) AND (description = :description)";
+        $query2 = $this->GetIdEvent($event->getTitle(), $event->getDescription());
         $parameters2["title"] = $event->getTitle();
         $parameters2["description"] = $event->getDescription();
         $idevent = $this->connection->Execute($query2,$parameters2);
@@ -44,7 +44,7 @@
       foreach ($array as $link) {
         // code...
         try{
-          $query = "INSERT INTO ".TABLESIMAGE." (imgid,image,status) VALUES(:imgid,:image,:status)";
+          $query = "INSERT INTO ".IMAGESTABLE." (imgid,image,status) VALUES(:imgid,:image,:status)";
 
           $parameters["imgid"] = $idarray;
           $parameters["image"] = $link;
@@ -86,7 +86,7 @@
         $parameters["title"] = $title;
         $parameters["description"] = $description;
         $this->connection = Connection::GetInstance();
-        $resultSet = $this->connection->Execute($query,$parameters);
+        $resultSet = $this->connection->Execute($query, $parameters);
         foreach ($resultSet as $row) {
           // code...
           $idevent = $row["idevent"];

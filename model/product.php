@@ -73,6 +73,19 @@
         return $this;
     }
 
+    public function getSex()
+    {
+        return $this->sex;
+    }
+
+
+    public function setSex($sex)
+    {
+        $this->sex = $sex;
+
+        return $this;
+    }
+
 }
 
 

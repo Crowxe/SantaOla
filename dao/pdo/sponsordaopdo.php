@@ -38,7 +38,7 @@
       foreach ($array as $link) {
         // code...
         try{
-          $query = "INSERT INTO ".TABLESIMAGE." (imgid,image,status) VALUES(:imgid,:image,:status)";
+          $query = "INSERT INTO ".IMAGESTABLE." (imgid,image,status) VALUES(:imgid,:image,:status)";
 
           $parameters["imgid"] = $idarray;
           $parameters["image"] = $link;
