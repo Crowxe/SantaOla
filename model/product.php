@@ -11,6 +11,10 @@
         private $sex;
         private $images = array();
 
+    public function toString()
+    {
+      return $this->name+" "+$this->price;
+    }
 
     public function getName()
     {
@@ -23,7 +27,6 @@
 
         return $this;
     }
-
 
     public function getDescription()
     {
