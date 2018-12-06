@@ -1,6 +1,8 @@
 <?php
   namespace controller;
 
+  include("dao\pdo\\eventDaoPdo.php");
+
   use excepcions\WrongAtributeException;
   use dao\pdo\EventDaoPdo;
   use model\Event as Event;
@@ -37,7 +39,7 @@
       try
       {
         $eventList = $this->eventDAO->GetAll();
-        require_once(VIEWS_PATH."event-list.php");
+        //require_once(VIEWS_PATH."event-list.php");
       } catch(Exception $ex)  {
           $message = 'Oops ! \n\n Hubo un problema al intentar mostrar la Pagina.\n Consulte a su Administrador o vuelva a intentarlo.';
           echo '<script type="text/javascript">confirm("'.$message.'");</script>';
@@ -78,12 +80,12 @@
           try
           {
               $event = new Event();
-              $event->setName($name);
+              $event->setTitle($title);
               $event->setDescription($description);
               $event->setDate($date);
+              $idevent = $this->eventDAO->GetIdEvent($event->getTitle(),$event->getDescription());
 
-
-              if($this->eventDAO->GetEventById($event->getEventId() == null)
+              if($this->eventDAO->GetEventById($idevent) == null)
               {
                   $this->eventDAO->Add($event);
                   $message = "Evento agregado con éxito";

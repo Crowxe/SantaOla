@@ -14,6 +14,10 @@
 
       }
 
+      public function toString()
+      {
+        return "Titulo: ".$this->title."<br>Descripcion: ".$this->description."<br>Date: ".$this->date."<br>";
+      }
       public function getEventId()
       {
         return $this->eventId;

@@ -8,7 +8,10 @@
         private $dni;
         private $images = array();
 
-
+        public function toString()
+        {
+          return "Name: ".$this->name."<br>Descripcion: ".$this->description."<br>DNI: ".$this->dni."<br>";
+        }
 
     public function getName()
     {

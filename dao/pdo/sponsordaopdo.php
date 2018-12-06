@@ -1,6 +1,8 @@
 <?php
   namespace dao\pdo;
 
+  include("dao\connection.php");
+
   use model\Sponsor as Sponsor;
   use dao\Connection as Connection;
   /**
@@ -16,17 +18,17 @@
     {
 
       try{
-        $query = "INSERT INTO ".$this->tableName." (dni,name,description,status) VALUES(:dni,:name:,description,:status)";
+        $query = "INSERT INTO ".$this->tableName." (dni,name,description,status) VALUES(:dni,:name,:description,:status)";
 
         $parameters["dni"] = $sponsor->getDni();
-        $parameters["description"] = $sponsor->getDescription();
         $parameters["name"] = $sponsor->getName();
+        $parameters["description"] = $sponsor->getDescription();
         $parameters["status"] = "active";
 
         $this->connection = Connection::GetInstance();
 
-        $this->connection = ExecuteNonQuery($query,$parameters);
-        $this->AddArray($sponsor->getDni, $sponsor->getImages);
+        $this->connection->ExecuteNonQuery($query,$parameters);
+      //  $this->AddArray($sponsor->getDni, $sponsor->getImages);
       }catch(Exception $e){
         throw $e;
       }
@@ -44,7 +46,7 @@
           $parameters["image"] = $link;
           $parameters["status"] = "active";
 
-          $this->connection = ExecuteNonQuery($query,$parameters);
+          $this->connection->ExecuteNonQuery($query,$parameters);
         }catch(Exception $e){
           throw $e;
         }
@@ -55,7 +57,7 @@
     {
       try {
         $sponsorArray = array();
-        $query = "SELECT * FROM ".this->tableName." WHERE status = :status";
+        $query = "SELECT * FROM ".$this->tableName." WHERE status = :status";
         $parameters["status"] = "active";
         $this->connection = Connection::GetInstance();
         $result = $this->connection->Execute($query,$parameters);
@@ -77,7 +79,7 @@
     {
       try{
         $sponsorR = null;
-        $query = "SELECT * FROM ".this->tableName." WHERE (dni = :dni) AND (status = :status)";
+        $query = "SELECT * FROM ".$this->tableName." WHERE (dni = :dni) AND (status = :status)";
         $parameters["dni"] = $dni;
         $parameters["status"] = "active";
         $this->connection = Connection::GetInstance();
@@ -101,6 +103,7 @@
       try{
         $query = "UPDATE ".$this->tableName." SET Status = 'inactive' WHERE idevent = :idevent";
         $parameters["idevent"] = $idevent;
+        $this->connection = Connection::GetInstance();
         $this->connection->ExecuteNonQuery($query,$parameters);
       } catch (Exception $e){
 

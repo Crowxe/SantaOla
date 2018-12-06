@@ -1,6 +1,8 @@
 <?php
       namespace controller;
 
+      include("dao\pdo\sponsorDaoPdo.php");
+
       use model\Sponsor as Sponsor;
       use dao\pdo\SponsorDaoPdo as SponsorDaoPdo;
 
@@ -11,6 +13,15 @@
         public function __construct()
         {
           $this->sponsorDAO = new SponsorDaoPdo();
+        }
+
+        public function GetAll()
+        {
+          return $this->sponsorDAO->GetAll();
+        }
+        public function GetSponsorByDNI($dni)
+        {
+          return $this->sponsorDAO->GetSponsorByDNI($dni);
         }
 
         public function addSponsor($message = "")
@@ -35,7 +46,7 @@
               {
             $sponsorList = $this->sponsorDAO->GetAll();
 
-              require_once(VIEWS_PATH."sponsor-list.php");
+            //  require_once(VIEWS_PATH."sponsor-list.php");
               }
               catch(Exception $ex)
             {
