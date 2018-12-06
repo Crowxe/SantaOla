@@ -1,6 +1,8 @@
 <?php
   namespace controller;
 
+  include("dao\pdo\productDaoPdo.php");
+
   use excepcions\WrongAtributeException;
   use dao\pdo\productDaoPdo;
   use model\Product as Product;
@@ -12,7 +14,7 @@
 
     function __construct()
     {
-      this->$productDAO = new EventDaoPdo();
+      $this->productDAO = new ProductDaoPdo();
     }
 
     public function addProduct($message = "")

@@ -1,6 +1,8 @@
 <?php
   namespace dao\pdo;
 
+  include("dao\Connection.php");
+
   use model\Product as Product;
   use dao\Connection as Connection;
   /**
@@ -16,19 +18,18 @@
     {
 
       try{
-        $query = "INSERT INTO ".$this->tableName." (idproduct,name,description,price,image,status,sex) VALUES(:idproduct,:code,:name,:description,:price,:image,:status,:sex)";
+        $query = "INSERT INTO ".$this->tableName." (idproduct,name,description,price,status,sex) VALUES(:idproduct,:code,:name,:description,:price,:status,:sex)";
 
         $parameters["idproduct"] = $product->getProductcode();
         $parameters["name"] = $product->getName();
         $parameters["description"] = $product->getDescription();
         $parameters["price"] = $product->getPrice();
-        $parameters["image"] = $product->getImage();
         $parameters["status"] = "active";
         $parameters["sex"] = $product->getSex();
 
         $this->connection = Connection::GetInstance();
 
-        $this->connection = ExecuteNonQuery($query,$parameters);
+        $this->connection->ExecuteNonQuery($query,$parameters);
       }catch(Exception $e){
         throw $e;
       }
@@ -57,7 +58,7 @@
     {
       try {
         $productArray = array();
-        $query = "SELECT * FROM ".this->tableName." WHERE status = :status";
+        $query = "SELECT * FROM ".$this->tableName." WHERE status = :status";
         $parameters["status"] = "active";
         $this->connection = Connection::GetInstance();
         $result = $this->connection->Execute($query,$parameters);
@@ -81,7 +82,7 @@
     {
       try{
         $productR = null;
-        $query = "SELECT * FROM ".this->tableName." WHERE (idproduct = :idproduct) AND (status = :status)";
+        $query = "SELECT * FROM ".$this->tableName." WHERE (idproduct = :idproduct) AND (status = :status)";
         $parameters["idproduct"] = $idEvent;
         $parameters["status"] = "active";
         $this->connection = Connection::GetInstance();
@@ -104,7 +105,7 @@
     public function LogicalDelete($idproduct)
     {
       try{
-        $query = "UPDATE ".$this->tableName." SET Status = "inactive" WHERE idproduct = :idproduct";
+        $query = "UPDATE ".$this->tableName." SET Status = inactive WHERE idproduct = :idproduct";
         $parameters["idproduct"] = $idproduct;
         $this->connection->ExecuteNonQuery($query,$parameters);
       } catch (Exception $e){

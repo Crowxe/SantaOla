@@ -18,7 +18,7 @@
 
     public function toString()
     {
-      return $this->name+" "+$this->price;
+      return $this->name." ".$this->price;
     }
 
     public function getName()

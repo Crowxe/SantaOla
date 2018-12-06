@@ -1,7 +1,10 @@
 <?php
     namespace dao;
 
+    include("Config\Config.php");
+
     use \PDO as PDO;
+    use Config;
     use \Exceptions as Exception;
 
 
@@ -63,9 +66,7 @@
                 {
                     $this->pdoStatement->bindParam(":".$parameterName, $parameters[$parameterName]);
                 }
-
                 $this->pdoStatement->execute();
-
                 return $this->pdoStatement->rowCount();
             }
             catch(Exception $ex)
