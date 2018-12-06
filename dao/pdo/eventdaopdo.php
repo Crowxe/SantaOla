@@ -17,7 +17,6 @@
     {
 
       try{
-        echo "string";
         $query = "INSERT INTO ".$this->tableName." (title,description,date,status) VALUES(:title,:description,:date,:status)";
         $parameters["title"] = $event->getTitle();
         $parameters["description"] = $event->getDescription();
