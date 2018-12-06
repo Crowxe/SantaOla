@@ -18,7 +18,7 @@
     {
 
       try{
-        $query = "INSERT INTO ".$this->tableName." (idproduct,name,description,price,status,sex) VALUES(:idproduct,:code,:name,:description,:price,:status,:sex)";
+        $query = "INSERT INTO ".$this->tableName." (idproduct,name,description,price,status,sex) VALUES(:idproduct,:name,:description,:price,:status,:sex)";
 
         $parameters["idproduct"] = $product->getProductcode();
         $parameters["name"] = $product->getName();
@@ -69,7 +69,6 @@
             $product->setDescription($row["description"]);
             $product->setPrice($row["price"]);
             $product->setProductcode($row["idproduct"]);
-            $product->setImage($row["image"]);
             array_push($productArray, $event);
         }
         return $productArray;
