@@ -99,7 +99,7 @@
     public function LogicalDelete($dni)
     {
       try{
-        $query = "UPDATE ".$this->tableName." SET Status = "inactive" WHERE idevent = :idevent";
+        $query = "UPDATE ".$this->tableName." SET Status = 'inactive' WHERE idevent = :idevent";
         $parameters["idevent"] = $idevent;
         $this->connection->ExecuteNonQuery($query,$parameters);
       } catch (Exception $e){

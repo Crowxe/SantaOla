@@ -38,7 +38,7 @@
           {
         $productList = $this->productDAO->GetAll();
 
-          require_once(VIEWS_PATH."product-list.php");
+        //  require_once(VIEWS_PATH."product-list.php");
           }
           catch(Exception $ex)
         {

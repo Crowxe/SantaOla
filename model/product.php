@@ -69,6 +69,11 @@
         return $this;
     }
 
+    public function AddImage($newImage)
+    {
+      array_push($this->images, $newImage);
+    }
+    
     public function getImages()
     {
         return $this->image;

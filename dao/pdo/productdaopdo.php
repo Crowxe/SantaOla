@@ -29,6 +29,7 @@
 
         $this->connection = Connection::GetInstance();
 
+        //$this->AddArray($product->getProductcode(),$product->getImages());
         $this->connection->ExecuteNonQuery($query,$parameters);
       }catch(Exception $e){
         throw $e;
@@ -104,8 +105,9 @@
     public function LogicalDelete($idproduct)
     {
       try{
-        $query = "UPDATE ".$this->tableName." SET Status = inactive WHERE idproduct = :idproduct";
+        $query = "UPDATE ".$this->tableName." SET status = 'inactive' WHERE idproduct = :idproduct";
         $parameters["idproduct"] = $idproduct;
+        $this->connection = Connection::GetInstance();
         $this->connection->ExecuteNonQuery($query,$parameters);
       } catch (Exception $e){
 
