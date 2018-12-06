@@ -11,6 +11,11 @@
         private $sex;
         private $images = array();
 
+        public function __construct()
+        {
+
+        }
+
     public function toString()
     {
       return $this->name+" "+$this->price;
