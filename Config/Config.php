@@ -16,7 +16,7 @@
     define("DB_HOST", "localhost");
     define("DB_NAME", "santaola");
     define("DB_USER", "root");
-    define("DB_PASS", "mama0670");
+    define("DB_PASS", "");
     define("IMAGESTABLE", "images");
 
 ?>

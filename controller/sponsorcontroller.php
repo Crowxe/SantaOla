@@ -87,7 +87,7 @@
           }
 
           public function moveImage($name){
-                $imageDirectory = VIEWS_PATH.'img/sponsors/';
+                $imageDirectory = CSS_PATH.'img/sponsors/';
 
                 if(!file_exists($imageDirectory)){
 

@@ -1,0 +1,6 @@
+//Expeciones querys
+// Modificaciones Querys
+// Controladoras request COMENTADOS, DESCOMENTAR Cuando esten las vistas hechas
+// Consultas con Filtros
+// Imagenes
+// Front End

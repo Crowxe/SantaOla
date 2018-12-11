@@ -81,7 +81,7 @@
       }
 
       public function moveImage($name){
-            $imageDirectory = VIEWS_PATH.'img/products/';
+            $imageDirectory = CSS_PATH.'img/products/';
 
             if(!file_exists($imageDirectory)){
 

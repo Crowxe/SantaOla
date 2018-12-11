@@ -48,7 +48,7 @@
     }
 
     public function moveImage($name){
-          $imageDirectory = VIEWS_PATH.'img/events/';
+          $imageDirectory = CSS_PATH.'img/events/';
 
           if(!file_exists($imageDirectory)){
 

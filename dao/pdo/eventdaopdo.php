@@ -4,6 +4,7 @@
 
   use model\Event as Event;
   use dao\Connection as Connection;
+  use exceptions\EventNotFoundException as EventNotFoundException;
   /**
    *
    */
@@ -82,6 +83,7 @@
     public function GetIdEvent($title, $description)
     {
       try{
+
         $query = "SELECT idevent FROM ".$this->tableName." WHERE (title = :title) AND (description = :description)";
         $parameters["title"] = $title;
         $parameters["description"] = $description;
@@ -91,7 +93,14 @@
           // code...
           $idevent = $row["idevent"];
         }
-        return $idevent;
+        if($idevent!=null)
+        {
+          return $idevent;
+        }
+        else {
+          throw new EventNotFoundException();
+        }
+
       }catch (Exception $e){
 
       }

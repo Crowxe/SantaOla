@@ -5,6 +5,8 @@
 
   use model\Product as Product;
   use dao\Connection as Connection;
+  use exceptions\ProductNotFoundException as ProductNotFoundException;
+
   /**
    *
    */
@@ -72,7 +74,11 @@
             $product->setProductcode($row["idproduct"]);
             array_push($productArray, $event);
         }
-        return $productArray;
+        if ($productArray != null)
+          return $productArray;
+        else {
+           throw new ProductNot
+        }
       } catch (Exception $e) {
       }
 

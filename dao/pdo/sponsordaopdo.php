@@ -5,6 +5,8 @@
 
   use model\Sponsor as Sponsor;
   use dao\Connection as Connection;
+  use exceptions\SponsorNotFoundException as SponsorNotFoundException;
+
   /**
    *
    */
