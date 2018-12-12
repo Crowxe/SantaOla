@@ -114,7 +114,6 @@
             try
             {
                 $this->productDAO->LogicalDelete($productCode);
-
                 $this->listProducts();
             }
             catch(Exception $ex)
@@ -122,7 +121,7 @@
                 $message = 'Oops ! \n\n Hubo un problema al intentar eliminar el producto.\n Consulte a su Administrador o vuelva a intentarlo.';
                 echo '<script type="text/javascript">confirm("'.$message.'");</script>';
                 require_once(VIEWS_PATH."home.php");
-              }
+            }
       }
 
       public function GetAll()

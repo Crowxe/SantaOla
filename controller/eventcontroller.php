@@ -31,15 +31,6 @@
         }
     }
 
-    public function UpdateEvent($title, $description, $date)
-    {
-      $event = new Event();
-      $event->setTitle($title);
-      $event->setDescription($description);
-      $event->setDate($date);
-      $this->eventDAO->UpdateEvent($event);
-    }
-
     public function listEvents($message)
     {
       try
@@ -55,7 +46,16 @@
 
         }
     }
-    
+
+    public function UpdateEvent($title, $description, $date)
+    {
+      $event = new Event();
+      $event->setTitle($title);
+      $event->setDescription($description);
+      $event->setDate($date);
+      $this->eventDAO->UpdateEvent($event);
+    }
+
     public function GetAll()
     {
       $events = $this->eventDAO->GetAll();

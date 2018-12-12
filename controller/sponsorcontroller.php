@@ -15,33 +15,6 @@
           $this->sponsorDAO = new SponsorDaoPdo();
         }
 
-        public function GetAll()
-        {
-          $sponsors = $this->sponsorDAO->GetAll();
-          if ($sponsors != null)
-            return $sponsors;
-          else
-            throw new SponsorNotFoundException();
-        }
-
-        public function UpdateSponsor($oldDni, $dni, $name, $description)
-        {
-          $sponsor = new Sponsor();
-          $sponsor->setDni($dni);
-          $sponsor->setName($name);
-          $sponsor->setDescription($description);
-          $this->sponsorDAO->UpdateSponsor($oldDni,$sponsor);
-        }
-
-        public function GetSponsorByDNI($dni)
-        {
-          $sponsor =  $this->sponsorDAO->GetSponsorByDNI($dni);
-          if ($sponsor != null)
-            return $sponsor;
-          else
-            throw new SponsorNotFoundException();
-        }
-
         public function addSponsor($message = "")
         {
             try
@@ -104,6 +77,33 @@
                   echo '<script type="text/javascript">confirm("'.$message.'");</script>';
                   require_once(VIEWS_PATH."home.php");
               }
+          }
+
+          public function GetAll()
+          {
+            $sponsors = $this->sponsorDAO->GetAll();
+            if ($sponsors != null)
+              return $sponsors;
+            else
+              throw new SponsorNotFoundException();
+          }
+
+          public function UpdateSponsor($oldDni, $dni, $name, $description)
+          {
+            $sponsor = new Sponsor();
+            $sponsor->setDni($dni);
+            $sponsor->setName($name);
+            $sponsor->setDescription($description);
+            $this->sponsorDAO->UpdateSponsor($oldDni,$sponsor);
+          }
+
+          public function GetSponsorByDNI($dni)
+          {
+            $sponsor =  $this->sponsorDAO->GetSponsorByDNI($dni);
+            if ($sponsor != null)
+              return $sponsor;
+            else
+              throw new SponsorNotFoundException();
           }
 
           public function moveImage($name){
