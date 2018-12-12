@@ -125,6 +125,33 @@
               }
       }
 
+      public function GetAll()
+      {
+        $products = $this->productDAO->GetAll();
+        if ($products != null)
+          return $products;
+        else
+          throw new ProductNotFoundException();
+      }
+
+      public function GetProduct($code)
+      {
+        $product = $this->productDAO->GetProductByCode($code);
+        if ($product != null)
+          return $product;
+        else
+          throw new ProductNotFoundException();
+      }
+
+      public function GetProductsByFilters($filters = array())
+      {
+        $products = $this->productDAO->GetProductsByFilters($filters);
+        if ($products != null)
+          return $products;
+        else
+          throw new ProductNotFoundException();
+      }
+
       public function ShowException()
       {
           try

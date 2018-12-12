@@ -29,7 +29,6 @@
             echo '<script type="text/javascript">confirm("'.$message.'");</script>';
             require_once(VIEWS_PATH."home.php");
         }
-
     }
 
     public function UpdateEvent($title, $description, $date)
@@ -55,6 +54,15 @@
         catch (EventNotFoundException e){
 
         }
+    }
+    
+    public function GetAll()
+    {
+      $events = $this->eventDAO->GetAll();
+      if ($events != null)
+        return $events;
+      else
+        throw new EventNotFoundException();
     }
 
     public function moveImage($name){
