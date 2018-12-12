@@ -74,14 +74,27 @@
             $product->setProductcode($row["idproduct"]);
             array_push($productArray, $event);
         }
-        if ($productArray != null)
-          return $productArray;
-        else {
-           throw new ProductNot
-        }
+        return $productArray;
       } catch (Exception $e) {
       }
 
+    }
+
+    public function UpdateProduct($oldId, Product $product)
+    {
+        try{
+          $query = "UPDATE ".$this->tableName." SET idproduct = :idproduct, name = :name, description = :description, price = :price, sex = :sex WHERE idproduct = :idpre";
+          $parameters["idpre"] = $oldId;
+          $parameters["idproduct"] = $product->getProductcode();
+          $parameters["name"] = $product->getName();
+          $parameters["description"] = $product->getDescription();
+          $parameters["price"] = $product->getPrice();
+          $parameters["sex"] = $product->getSex();
+          $this->connection = Connection::GetInstance();
+          $this->connection->ExecuteNonQuery($query,$parameters);
+        } catch (Exception $e){
+
+        }
     }
 
     public function GetByProductCode($idproduct)

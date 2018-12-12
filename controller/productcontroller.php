@@ -9,7 +9,6 @@
 
   class ProductController
   {
-
     private $productDAO;
 
     function __construct()
@@ -17,41 +16,44 @@
       $this->productDAO = new ProductDaoPdo();
     }
 
-    public function addProduct($message = "")
-    {
-        try
-        {
-                require_once(VIEWS_PATH."add-product.php");
-        }
-        catch(Exception $ex)
-        {
-            $message = 'Oops ! \n\n Hubo un problema al intentar mostrar la Pagina.\n Consulte a su Administrador o vuelva a intentarlo.';
-            echo '<script type="text/javascript">confirm("'.$message.'");</script>';
-            require_once(VIEWS_PATH."home.php");
-        }
-
-        }
-
-        public function listProducts()
-        {
-          try
-          {
-        $productList = $this->productDAO->GetAll();
-
-        //  require_once(VIEWS_PATH."product-list.php");
+      public function addProduct($message = "")
+      {
+          try{
+                  require_once(VIEWS_PATH."add-product.php");
+          } catch(Exception $ex){
+              $message = 'Oops ! \n\n Hubo un problema al intentar mostrar la Pagina.\n Consulte a su Administrador o vuelva a intentarlo.';
+              echo '<script type="text/javascript">confirm("'.$message.'");</script>';
+              require_once(VIEWS_PATH."home.php");
           }
-          catch(Exception $ex)
-        {
+      }
+
+      public function listProducts($message)
+      {
+        try {
+          $productList = $this->productDAO->GetAll();
+          if ($productList == null)
+            throw new ProductNotFoundException();
+        //require_once(VIEWS_PATH."product-list.php");
+        }catch(Exception $ex) {
           $message = 'Oops ! \n\n Hubo un problema al intentar mostrar la Pagina.\n Consulte a su Administrador o vuelva a intentarlo.';
           echo '<script type="text/javascript">confirm("'.$message.'");</script>';
           require_once(VIEWS_PATH."home.php");
         }
       }
 
+      public function UpdateProduct($oldId, $productCode, $name, $description, $price, $sex)
+      {
+        $product = new Product();
+        $product->setProductcode($productCode);
+        $product->setName($name);
+        $product->setDescription($description);
+        $product->setPrice($price);
+        $product->setSex($sex);
+        $this->productDAO->UpdateProduct($oldId,$product);
+      }
 
       public function Add($name, $description, $price, $productcode,$sex,$images)
       {
-
           //lo de la imagen lo hago después, no viene por parametro
           try
           {
@@ -80,7 +82,8 @@
           }
       }
 
-      public function moveImage($name){
+      public function moveImage($name)
+      {
             $imageDirectory = CSS_PATH.'img/products/';
 
             if(!file_exists($imageDirectory)){
@@ -106,9 +109,8 @@
             }
         }
 
-
       public function Delete($productCode)
-        {
+      {
             try
             {
                 $this->productDAO->LogicalDelete($productCode);
@@ -121,23 +123,22 @@
                 echo '<script type="text/javascript">confirm("'.$message.'");</script>';
                 require_once(VIEWS_PATH."home.php");
               }
+      }
+
+      public function ShowException()
+      {
+          try
+          {
+              $message = "";
+
+              $this->sponsorDAO->ShowException();
           }
-
-
-                    public function ShowException(){
-                        try
-                        {
-                            $message = "";
-
-                            $this->sponsorDAO->ShowException();
-                        }
-                        catch(Exception $ex)
-                        {
-                            $message = 'Oops ! \n\n Hubo un problema de tipo Exception.\n Consulte a su Administrador.';
-                            echo '<script type="text/javascript">confirm("'.$message.'");</script>';
-                            require_once(VIEWS_PATH."home.php");
-                        }
-                    }
-
+          catch(Exception $ex)
+          {
+              $message = 'Oops ! \n\n Hubo un problema de tipo Exception.\n Consulte a su Administrador.';
+              echo '<script type="text/javascript">confirm("'.$message.'");</script>';
+              require_once(VIEWS_PATH."home.php");
+          }
+      }
 
   }

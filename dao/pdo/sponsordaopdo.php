@@ -99,6 +99,21 @@
       }
     }
 
+    public function UpdateSponsor($oldDni, Sponsor $sponsor)
+    {
+      try{
+        $query = "UPDATE ".$this->tableName." SET dni = :dni, name =:name, description = :description WHERE dni = :oldDni";
+        $parameters["oldDni"]  =$oldDni;
+        $parameters["dni"] = $sponsor->getDni();
+        $parameters["name"] = $sponsor->getName();
+        $parameters["description"] = $sponsor->getDescription();
+        $this->connection = Connection::GetInstance();
+        $this->connection->ExecuteNonQuery($query,$parameters);
+      } catch (Exception $e){
+
+      }
+    }
+
 // A cambiar por una columna "isActive" a la cual en esta función la seteamos en 0;
     public function LogicalDelete($dni)
     {

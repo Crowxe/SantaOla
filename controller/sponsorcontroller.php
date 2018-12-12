@@ -17,11 +17,29 @@
 
         public function GetAll()
         {
-          return $this->sponsorDAO->GetAll();
+          $sponsors = $this->sponsorDAO->GetAll();
+          if ($sponsors != null)
+            return $sponsors;
+          else
+            throw new SponsorNotFoundException();
         }
+
+        public function UpdateSponsor($oldDni, $dni, $name, $description)
+        {
+          $sponsor = new Sponsor();
+          $sponsor->setDni($dni);
+          $sponsor->setName($name);
+          $sponsor->setDescription($description);
+          $this->sponsorDAO->UpdateSponsor($oldDni,$sponsor);
+        }
+
         public function GetSponsorByDNI($dni)
         {
-          return $this->sponsorDAO->GetSponsorByDNI($dni);
+          $sponsor =  $this->sponsorDAO->GetSponsorByDNI($dni);
+          if ($sponsor != null)
+            return $sponsor;
+          else
+            throw new SponsorNotFoundException();
         }
 
         public function addSponsor($message = "")
@@ -44,7 +62,9 @@
             {
               try
               {
-            $sponsorList = $this->sponsorDAO->GetAll();
+                $sponsorList = $this->sponsorDAO->GetAll();
+                if ($sponsorList == null)
+                  throw new SponsorNotFoundException();
 
             //  require_once(VIEWS_PATH."sponsor-list.php");
               }
@@ -143,13 +163,5 @@
                   require_once(VIEWS_PATH."home.php");
               }
           }
-
-
-
         }
-
-
-
-
-
  ?>

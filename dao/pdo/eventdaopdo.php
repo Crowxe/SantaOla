@@ -30,7 +30,7 @@
 
     //    $query2 = $this->GetIdEvent($event->getTitle(), $event->getDescription());
     //    $parameters2["title"] = $event->getTitle();
-    //W    $parameters2["description"] = $event->getDescription();
+    //    $parameters2["description"] = $event->getDescription();
     //    $idevent = $this->connection->Execute($query2,$parameters2);
     //    $this->AddArray($idevent, $event->getImages());
 
@@ -74,7 +74,10 @@
             $event->setDate($row["date"]);
             array_push($eventArray, $event);
         }
-        return $eventArray;
+        if ($eventArray != null)
+          return $eventArray;
+        else
+          throw new EventNotFoundException();
       } catch (Exception $e) {
       }
 
@@ -93,14 +96,7 @@
           // code...
           $idevent = $row["idevent"];
         }
-        if($idevent!=null)
-        {
-          return $idevent;
-        }
-        else {
-          throw new EventNotFoundException();
-        }
-
+        return $idevent;
       }catch (Exception $e){
 
       }
@@ -124,6 +120,21 @@
         }
         return $eventR;
       }catch (Exception $e){
+
+      }
+    }
+
+    public function UpdateEvent(Event $event)
+    {
+      try{
+        $idEvent = $this->GetIdEvent($event->getTitle(),$event->getDescription())
+        $query = "UPDATE ".$this->tableName." SET title = :title, description = :description, date = :date WHERE idevent = :idevent";
+        $parameters["title"] = $event->getTitle();
+        $parameters["description"] = $event->getDescription();
+        $parameters["date"] =$event->getDate();
+        $this->connection = Connection::GetInstance();
+        $this->connection->ExecuteNonQuery($query,$parameters);
+      } catch (Exception $e){
 
       }
     }

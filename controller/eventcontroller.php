@@ -32,9 +32,16 @@
 
     }
 
+    public function UpdateEvent($title, $description, $date)
+    {
+      $event = new Event();
+      $event->setTitle($title);
+      $event->setDescription($description);
+      $event->setDate($date);
+      $this->eventDAO->UpdateEvent($event);
+    }
 
-
-    public function listEvents()
+    public function listEvents($message)
     {
       try
       {
@@ -44,6 +51,9 @@
           $message = 'Oops ! \n\n Hubo un problema al intentar mostrar la Pagina.\n Consulte a su Administrador o vuelva a intentarlo.';
           echo '<script type="text/javascript">confirm("'.$message.'");</script>';
           require_once(VIEWS_PATH."home.php");
+        }
+        catch (EventNotFoundException e){
+
         }
     }
 
@@ -75,7 +85,6 @@
 
       public function Add($title, $description, $date)
       {
-
           //lo de la imagen lo hago después, no viene por parametro
           try
           {
@@ -84,15 +93,13 @@
               $event->setDescription($description);
               $event->setDate($date);
               $idevent = $this->eventDAO->GetIdEvent($event->getTitle(),$event->getDescription());
-
-              if($this->eventDAO->GetEventById($idevent) == null)
+              if($idevent == null)
               {
                   $this->eventDAO->Add($event);
                   $message = "Evento agregado con éxito";
               }
               else
                   $message = "Ya existe el evento que intenta ingresar";
-
               $this->listEvents($message);
           }
           catch(Exception $ex)
@@ -101,6 +108,16 @@
               echo '<script type="text/javascript">confirm("'.$message.'");</script>';
               require_once(VIEWS_PATH."home.php");
           }
+      }
+
+      public function GetEvent($title, $description)
+      {
+        $idevent = $this->eventDAO->GetIdEvent($title, $description);
+        $event = $this->eventDAO->GetEventById($idEvent);
+        if ($event != null)
+          return  $event;
+        else
+          throw new EventNotFoundException();
       }
 
 
@@ -135,9 +152,5 @@
                   require_once(VIEWS_PATH."home.php");
               }
           }
-
-
-
-
   }
 ?>
